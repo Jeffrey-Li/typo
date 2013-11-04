@@ -1,0 +1,7 @@
+<h4>Merge Articles</h4>
+<%= form_tag(form_action, :enctype => "multipart/form-data") do %>
+    <label for="merge_with"><%= _("Article ID ") %></label>
+	<%= text_field_tag 'merge_with' %>
+	<% params[:id] = @article.id %>
+	<%= submit_tag("Merge")%>
+<% end %>
