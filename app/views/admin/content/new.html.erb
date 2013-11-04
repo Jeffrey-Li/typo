@@ -2,9 +2,9 @@
 
 <%= render "admin/shared/edit", { :form_type => "article", :form_action => { :action => "new", :id => @article.id , :class => ('autosave')} } %>
 
-<% unless params[:action] == 'new' or params[:action].include? "admin"%>
+<% unless params[:action] == 'new' or !User.find(session[:user_id]).admin?%>
 <%= render "merge", { :form_action => { :action => "merge", :id => @article.id , :class => ('autosave')} } %>
-
 <% end %>
 
 <%= debug params %>
+<%= session %>
