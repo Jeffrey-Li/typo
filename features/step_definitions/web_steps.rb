@@ -41,6 +41,18 @@ Given /^the blog is set up$/ do
                 :profile_id => 1,
                 :name => 'admin',
                 :state => 'active'})
+  User.create!({:login => 'notadmin',
+                :password => 'password',
+                :email => 'joe@snow.com',
+                :profile_id => 2,
+                :name => 'notadmin',
+                :state => 'active'})
+end
+
+Given /^the online blog is set up$/ do
+  Blog.default.update_attributes!({:blog_name => 'Jeffrey',
+                                   :base_url => 'http://young-thicket-2056.herokuapp.com'});
+  Blog.default.save!
 end
 
 And /^I am logged into the admin panel$/ do
@@ -54,6 +66,32 @@ And /^I am logged into the admin panel$/ do
     assert page.has_content?('Login successful')
   end
 end
+
+And /^I am logged into the online admin panel$/ do
+  visit '/accounts/login'
+  fill_in 'user_login', :with => 'admin'
+  fill_in 'user_password', :with => '8IYNO6B'
+  click_button 'Login'
+  if page.respond_to? :should
+    page.should have_content('Login successful')
+  else
+    assert page.has_content?('Login successful')
+  end
+end
+
+
+And /^I am logged into the normal user panel$/ do
+  visit '/accounts/login'
+  fill_in 'user_login', :with => 'notadmin'
+  fill_in 'user_password', :with => 'password'
+  click_button 'Login'
+  if page.respond_to? :should
+    page.should have_content('Login successful')
+  else
+    assert page.has_content?('Login successful')
+  end
+end
+
 
 # Single-line step scoper
 When /^(.*) within (.*[^:])$/ do |step, parent|
