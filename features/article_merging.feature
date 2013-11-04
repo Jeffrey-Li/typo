@@ -1,14 +1,12 @@
 Feature: Article Merging
-  As a blog manager
+  As a blog admin
   In order to organize my content
   I want to merge articles
 
-Background:
-    Given the online blog is set up
-
   Scenario: Non-admins should not see the merge button
-  	Given I am logged into the normal user panel
-   	And I am on the admin content page
+    Given the blog is set up
+  	And I am logged into the normal user panel
+   	And I am on the new article page
   	When I fill in "article_title" with "Foobar"
     And I fill in "article__body_and_extended_editor" with "Lorem Ipsum"
     And I press "Publish"
@@ -16,7 +14,8 @@ Background:
   	Then I should not see "Merge Articles"
 
   Scenario: Merging articles as an admin
-    Given I am logged into the online admin panel
+    Given the blog is set up
+    And I am logged into the admin panel
     And I am on the new article page
     When I fill in "article_title" with "Foobar"
     And I fill in "article__body_and_extended_editor" with "Lorem Ipsum"
@@ -24,10 +23,8 @@ Background:
     And I follow "Foobar"
     And I fill in "merge_with" with "1"
     And I press "Merge"
-    And I go to the home page
-    Then I should see "Foobar"
-    When I follow "Foobar"
-    I should see "Lorem Ipsum" 
+    Then I should see "Publish settings"
+    And I should see "Lorem Ipsum" 
     And I should see "Welcome to Typo"
 
 

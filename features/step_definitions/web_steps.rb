@@ -43,7 +43,7 @@ Given /^the blog is set up$/ do
                 :state => 'active'})
   User.create!({:login => 'notadmin',
                 :password => 'password',
-                :email => 'joe@snow.com',
+                :email => 'joe2@snow.com',
                 :profile_id => 2,
                 :name => 'notadmin',
                 :state => 'active'})
